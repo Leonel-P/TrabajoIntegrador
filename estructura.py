@@ -1,6 +1,4 @@
-import os
-import csv
-import json
+import os, json, csv
 from utilidades import pedir_opcion
 
 HEADER = ["nombre", "precio", "marca", "stock","activo"]

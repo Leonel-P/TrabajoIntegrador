@@ -72,15 +72,17 @@ def pedir_categoria():
         print(f"{i}. {cat}")
     while True:
         try:
-            eleccion = int(input("Seleccione una categoría por número: "))
+            eleccion = pedir_opcion("0. Salir\nSeleccione una categoría por número: ", len(categorias))
+            if eleccion == 0:
+                return eleccion
             if 1 <= eleccion <= len(categorias):
                 return categorias[eleccion - 1]
             else:
-                print("Selección inválida. Intente de nuevo.")
+                print("\nSelección inválida. Intente de nuevo.\n")
         except ValueError:
-            print("Entrada inválida. Por favor ingrese un número.")
+            print("\nEntrada inválida. Por favor ingrese un número.\n")
 def pedir_subcategoria(categoria, SUBCATEGORIAS=None):
-    """Permite al usuario elegir una subcategoría desde estructura.json (dinámico)."""
+    #Permite al usuario elegir una subcategoría desde estructura.json (dinámico).
     ARCHIVO_ESTRUCTURA = "estructura.json"
 
     # Verificamos que exista el archivo de estructura
@@ -108,7 +110,9 @@ def pedir_subcategoria(categoria, SUBCATEGORIAS=None):
     # Pedimos elección al usuario
     while True:
         try:
-            eleccion = int(input("Seleccione una subcategoría por número: "))
+            eleccion = pedir_opcion("Seleccione una subcategoría por número ('0' para volver): ", len(opciones))
+            if eleccion == 0:
+                return eleccion
             if 1 <= eleccion <= len(opciones):
                 return opciones[eleccion - 1]
             else:
