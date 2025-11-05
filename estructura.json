@@ -1,0 +1,17 @@
+{
+    "Computadoras": [
+        "Notebooks",
+        "PCs de escritorio",
+        "Tablets"
+    ],
+    "Celulares": [
+        "Gama alta",
+        "Gama media",
+        "Gama baja"
+    ],
+    "Consolas": [
+        "PlayStation",
+        "Xbox",
+        "Nintendo"
+    ]
+}
