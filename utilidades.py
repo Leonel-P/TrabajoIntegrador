@@ -17,7 +17,7 @@ def pedir_opcion(mensaje,rango_maximo):
             print("Error: opcion fuera de rango.")
             continue
 def pedir_nombre():
-    nombre = input("Ingrese el nombre del nuevo producto: ").strip()
+    nombre = input("Ingresar nombre del producto: ").strip()
     if nombre == "":
         print("El nombre no puede estar vacío.")
         return pedir_nombre()

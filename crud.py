@@ -55,6 +55,7 @@ def modificar_producto(base):
 
     # Mostrar todos los productos antes de pedir búsqueda
     print("\nListado de productos actuales:")
+    mostrar_productos(base, False)
     productos_totales = buscar_productos_por_nombre(base, "", incluir_inactivos=True)
     if not productos_totales:
         print("No hay productos cargados.")
@@ -93,18 +94,40 @@ def modificar_producto(base):
 
     # Solicitar nuevos valores
     nuevo_nombre = input(f"Nuevo nombre [{producto['nombre']}]: ").strip() or producto['nombre']
-    nuevo_precio = input(f"Nuevo precio [{producto['precio']}]: ").strip() or producto['precio']
-    nueva_marca = input(f"Nueva marca [{producto['marca']}]: ").strip() or producto['marca']
-    nuevo_stock = input(f"Nuevo stock [{producto['stock']}]: ").strip() or producto['stock']
-    activo = producto.get("activo", "si")  # conservar estado actual
 
-    # Validaciones básicas
-    try:
-        nuevo_precio = float(nuevo_precio)
-        nuevo_stock = int(nuevo_stock)
-    except ValueError:
-        print("Error: precio o stock con formato inválido. No se aplicaron los cambios.")
-        return
+    # Precio: solo positivo
+    while True:
+        nuevo_precio_input = input(f"Nuevo precio [{producto['precio']}]: ").strip()
+        if nuevo_precio_input == "":
+            nuevo_precio = float(producto['precio'])
+            break
+        try:
+            nuevo_precio = float(nuevo_precio_input)
+            if nuevo_precio <= 0:
+                print("Error: el precio debe ser un número positivo.")
+            else:
+                break
+        except ValueError:
+            print("Error: ingrese un número válido para el precio.")
+
+    nueva_marca = input(f"Nueva marca [{producto['marca']}]: ").strip() or producto['marca']
+
+    # Stock: solo positivo
+    while True:
+        nuevo_stock_input = input(f"Nuevo stock [{producto['stock']}]: ").strip()
+        if nuevo_stock_input == "":
+            nuevo_stock = int(producto['stock'])
+            break
+        try:
+            nuevo_stock = int(nuevo_stock_input)
+            if nuevo_stock < 0:
+                print("Error: el stock debe ser 0 o un número positivo.")
+            else:
+                break
+        except ValueError:
+            print("Error: ingrese un número entero válido para el stock.")
+
+    activo = producto.get("activo", "si")  # conservar estado actual
 
     # Cargar todos los productos del CSV
     with open(ruta_csv, "r", encoding="utf-8") as f:
